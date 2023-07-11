@@ -12,14 +12,17 @@ class Token
     private $userId;
     private $userName;
     private $password;
+    private $email;
 
-    public function __construct(string $token, string $expiry, int $userId, string $userName, string $password)
+    public function __construct(string $token, string $expiry, int $userId, string $userName, string $password, string $email)
     {
-        $this->token = password_hash($token, PASSWORD_DEFAULT);
+        $this->token = $token;
         $this->expiry = $expiry;
         $this->userId = $userId;
         $this->userName = $userName;
         $this->password = $password;
+        $this->email = $email;
+
     }
     public function saveToken()
     {
@@ -27,20 +30,28 @@ class Token
         $expiryValue = $this->getExpiry();
         $passwordValue = $this->getPassword();
         $userNameValue = $this->getUserName();
+        $userEmailValue = $this->getEmail();
         $userIdValue = $this->getUserId();
-        $result = DbConn::executeQuery("INSERT INTO `user_tokens` (`token`, `expiry`, `pwd`, `userName`, `user_id`) VALUES ('$tokenValue', '$expiryValue', '$passwordValue', '$userNameValue', '$userIdValue');");
+        $result = DbConn::executeQuery("INSERT INTO `user_tokens` (`token`, `expiry`, `password`, `userName`,`email`, `userId`) VALUES ('$tokenValue', '$expiryValue', '$passwordValue', '$userNameValue','$userEmailValue', '$userIdValue');");
     }
 
-    // public function verify_token(Token $token)
-    // {
-    //     $token_id = $token->getToken();
-    //     $token_id = $token_id
-    //     $result = DbConn::executeQuery("SELECT `userName`, `userName`, `email`, `password`, `role` FROM `users` WHERE `userName` ='$userName'");
-    //     if ($result->rowCount() === 0) {
-    //         return false;
-    //     }
-
-    // }
+    public static function verifyToken($token)
+    {
+        $result = DbConn::executeQuery("SELECT `id`, `token`, `expiry`, `password`, `userName` ,`email`,`userId` FROM `user_tokens` WHERE `token`=  '$token'");
+        if ($result->rowCount() === 0) {
+            return null;
+        }
+        $result = $result->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public static function deleteToken($token)
+    {
+        $result = DbConn::executeQuery("DELETE FROM `user_tokens` WHERE `token`=  '$token'");
+        if ($result->rowCount() === 0) {
+            return null;
+        }
+        return $result;
+    }
     public function getToken(): string
     {
         return $this->token;
@@ -61,6 +72,11 @@ class Token
     {
         return $this->password;
     }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
     public function setExpiry(string $expiry): void
     {
         $this->expiry = $expiry;
@@ -81,4 +97,9 @@ class Token
     {
         $this->password = $password;
     }
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
 }

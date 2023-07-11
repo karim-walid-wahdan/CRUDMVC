@@ -55,7 +55,7 @@ input[type="password"]{
 input[type="submit"] {
     border: none;
     color: white;
-    background-color:  #f4976c; 
+    background-color:  #f4976c ; 
 }
 input[type="text"]:hover,
 input[type="password"]:hover{
@@ -75,7 +75,7 @@ input[type="password"]:hover{
     align-items: center;
 
 }
-
+    
 #rememberMe input[type="checkbox"] {
     margin-right: 5px;
     width: fit-content;
@@ -87,7 +87,6 @@ input[type="password"]:hover{
     font-size: 16px;
     color: #333;
 }
-#signUpText{
-    font-size: small;
-    
+#hyperLinkText{
+    font-size: small; 
 }

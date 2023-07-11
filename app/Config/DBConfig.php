@@ -51,7 +51,7 @@ class DBConfig
             echo '<script>alert("' . $errorMessage . '");</script>';
 
             // Redirect to a specific page
-            header("Location: error_page.php");
+            #header("Location: error_page.php");
             die(); // Terminate the script
         }
 

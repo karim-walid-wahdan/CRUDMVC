@@ -11,21 +11,67 @@ class User
     private $email = "";
     private $password = "";
     private $role = "";
-
+    public function __construct(string $userName, string $email, string $password, string $role = "endUser", int $userId = null, )
+    {
+        $this->userId = $userId;
+        $this->userName = $userName;
+        $this->email = $email;
+        $this->password = $password;
+        $this->role = $role;
+    }
     public function getUser($userName)
     {
-        $result = DbConn::executeQuery("SELECT `userId`, `userName`, `email`, `password`, `role` FROM `users` WHERE `userName` ='$userName'");
+        $result = DbConn::executeQuery("SELECT `userId`, `userName`, `email`, `password`, `role` FROM `users` WHERE `userName` ='$userName'OR `email`='$userName'");
         if ($result->rowCount() === 0) {
             return false;
         }
         $result = $result->fetch(PDO::FETCH_ASSOC);
-        $user = new User();
-        $user->setUserName($result['userName']);
-        $user->setEmail($result['email']);
-        $user->setPassword($result['password']);
-        $user->setRole($result['role']);
-        $user->setUserId($result['userId']);
-        return $user;
+        $this->setUserName($result['userName']);
+        $this->setEmail($result['email']);
+        $this->setPassword($result['password']);
+        $this->setRole($result['role']);
+        $this->setUserId($result['userId']);
+        return true;
+    }
+    public function registerUser()
+    {
+        $userName = $this->getUserName();
+        $email = $this->getEmail();
+        $password = $this->getPassword();
+        $result = DbConn::executeQuery("INSERT INTO `users` (`userName`, `email`, `password`)  VALUES ('$userName', '$email', '$password');");
+        print_r($result);
+    }
+    public static function getUsers(string $dataNeeded): string
+    {
+        $result = DbConn::executeQuery("SELECT $dataNeeded FROM `users`");
+        $result = $result->fetchAll(PDO::FETCH_ASSOC);
+        $dataNeeded = substr($dataNeeded, 1, -1);
+        $dataNeeded = explode("`, `", $dataNeeded);
+
+        $table = '<table class="datatable">';
+        $table .= '<thead><tr>';
+
+        foreach ($dataNeeded as $column) {
+            $table .= '<th>' . $column . '</th>';
+        }
+
+        $table .= '</tr></thead>';
+        $table .= '<tbody>';
+
+        foreach ($result as $row) {
+            $table .= '<tr>';
+
+            foreach ($dataNeeded as $column) {
+                $table .= '<td>' . $row[$column] . '</td>';
+            }
+
+            $table .= '</tr>';
+        }
+
+        $table .= '</tbody>';
+        $table .= '</table>';
+
+        return $table;
     }
 
     public function getUserId()

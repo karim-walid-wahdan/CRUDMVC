@@ -7,8 +7,11 @@ $router = new App\Routes\Router();
 // session_destroy();
 //Define your routes
 $router->addRoute('GET', '/', 'Login@index');
-$router->addRoute('GET', '/login', 'Login@index');
-$router->addRoute('POST', '/login', 'Login@login');
+$router->addRoute('GET', '/Login', 'Login@index');
+$router->addRoute('POST', '/Login', 'Login@login');
+$router->addRoute('GET', '/SignUp', 'SignUp@index');
+$router->addRoute('POST', '/SignUp', 'SignUp@signUp');
+$router->addRoute('GET', '/Home', 'Home@index');
 
 // Dispatch the request to the appropriate controller and method
 $router->dispatch();
