@@ -40,10 +40,9 @@ class Login
                 header("Location: /");
                 exit();
             }
-            if (isset($_POST["remember"]) && $_POST["remember"] === "remember") {
+            if (isset($_POST["remember"]) && $_POST["remember"] === "remember" && !(isset($_COOKIE["token"]))) {
                 $token = bin2hex(random_bytes(16)); // Generate a random token using random_bytes()
                 setcookie("token", $token, time() + (86400 * 30), "/"); // Set the token as a cookie for 30 days
-
                 $token = new Token($token, date("Y-m-d H:i:s"), $user->getUserId(), $user->getUserName(), $user->getPassword(), $user->getEmail());
                 $token->saveToken();
             } else if (isset($_COOKIE["token"])) {

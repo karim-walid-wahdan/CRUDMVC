@@ -34,7 +34,7 @@ class Token
         $userIdValue = $this->getUserId();
         $result = DbConn::executeQuery("INSERT INTO `user_tokens` (`token`, `expiry`, `password`, `userName`,`email`, `userId`) VALUES ('$tokenValue', '$expiryValue', '$passwordValue', '$userNameValue','$userEmailValue', '$userIdValue');");
     }
-
+    
     public static function verifyToken($token)
     {
         $result = DbConn::executeQuery("SELECT `id`, `token`, `expiry`, `password`, `userName` ,`email`,`userId` FROM `user_tokens` WHERE `token`=  '$token'");

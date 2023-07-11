@@ -49,7 +49,7 @@ class User
         $dataNeeded = explode("`, `", $dataNeeded);
 
         $table = '<table class="datatable">';
-        $table .= '<thead><tr>';
+        $table .= '<thead class= "datatablehead"><tr>';
 
         foreach ($dataNeeded as $column) {
             $table .= '<th>' . $column . '</th>';

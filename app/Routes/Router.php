@@ -28,8 +28,14 @@ class Router
             // Call the controller method
             $controller->$methodName();
         } else {
-            // Handle 404 - Route not found
-            echo '404 - Page not found';
+            if (!session_status() === PHP_SESSION_ACTIVE) {
+                session_unset();
+                session_destroy();   
+            }
+
+            $className = "App\Controller\Error";
+            $controller = new $className();
+            $controller->index();
         }
     }
 }

@@ -26,22 +26,22 @@ body, html {
     box-shadow: 0 -16px -16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-.navBar input[type="submit"] {
+.navBar button {
     border: none;
     background-color: white;
     color: #f4976c;
     border-radius: 20px;
     padding: 10px 20px;
-    margin: 0px;
+    margin: 20px;
 }
-.navBar input[type="submit"]:hover{
+.navBar button:hover{
     transform: translateY(-3px);
     box-shadow: 0 16px 16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
     box-shadow: 0 -16px -16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
 }
-.navBar input[type="submit"]:active {
+.navBar button:active {
     transform: translateY(3px);
     box-shadow: 0 -16px -16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -53,18 +53,24 @@ body, html {
     height: 80vh;
 }
 .datatable {
-  border-radius: 8px;
-  border-collapse: collapse;
+  
+  
   margin: 0 auto;
-  }
+  border-spacing: 1;
+  border-radius: 8px;
+}
 
 .datatable th,
 .datatable td {
   padding: 8px;
+  border-radius: 8px;
   border: 1px solid #f4976c;
-  }
-
-.datatable th:hover,td:hover {
+}
+.datatablehead{
+  background-color: #f4976c;
+}
+.datatable th:hover,
+.datatable td:hover {
   background-color: #f4976c;
   border-radius: 8px;
   color: #ffffff;

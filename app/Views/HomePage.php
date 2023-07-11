@@ -7,6 +7,9 @@
 </head>
 
 <body>
+    <?php
+    
+    ?>
     <div class="navBar">
         <div>
             <?php
@@ -14,11 +17,11 @@
             echo "Welcome! $userName ";
             ?>
         </div>
-        <div style="float: right;">
-            <form action="logout.php" method="Get">
-                <input type="submit" value="Logout">
-            </form>
-        </div>
+        <form action="/Home" style="float: right; display: flex" method="POST">
+            <button type="submit" name="adduser">Add User</button>
+            <button type="submit" name="edituser">Edit User</button>
+            <button type="submit" name="logout">Logout</button>
+        </form>
 
     </div>
     <div class="mainBody">
